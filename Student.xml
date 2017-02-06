@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.002.001.02' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance'>
+<pain.002.001.02>
+<GrpHdr>
+<MsgId>411872924106</MsgId>
+<CreDtTm>2014-06-20T07:55:42</CreDtTm>
+</GrpHdr>
+  <Students>
+    <Student>
+      <RecId>5637145326</RecId>
+      <Status>Active</Status>
+    </Student>
+  </Students>
+</pain.002.001.02>
+</Document> 

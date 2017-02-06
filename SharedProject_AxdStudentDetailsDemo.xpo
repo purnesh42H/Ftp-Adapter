@@ -1,0 +1,1161 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: QUE
+
+; Microsoft Dynamics AX Query: StudentDetails unloaded
+; --------------------------------------------------------------------------------
+VERSION 31
+
+QUERY #StudentDetails
+  PROPERTIES
+    Name                #StudentDetails
+    Version             #7
+    NextUniqueId        #1001
+    Origin              #{42A52982-1734-4DBD-AFF1-E87768B95F21}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class QueryRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  BLOCKS
+    BLOCK #StudentDetails
+      PROPERTIES
+        Name                #StudentDetails
+        Table               #StudentDetails
+        UniqueId            #1000
+        FetchMode           #1:1
+        Update              #Yes
+      ENDPROPERTIES
+      
+      FIELDLIST
+        PROPERTIES
+        ENDPROPERTIES
+        
+      ENDFIELDLIST
+      SORTING
+      ENDSORTING
+      LINES
+      ENDLINES
+      BLOCKS
+      ENDBLOCKS
+      GROUPBY
+      ENDGROUPBY
+      HAVING
+      ENDHAVING
+      ORDERBY
+      ENDORDERBY
+    ENDBLOCK
+  ENDBLOCKS
+  DEPENDENTS
+  ENDDEPENDENTS
+  COMPOSITEQUERIES
+  ENDCOMPOSITEQUERIES
+ENDQUERY
+
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: AxdStudentDetailsDemo unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #AxdStudentDetailsDemo
+    PROPERTIES
+      Name                #AxdStudentDetailsDemo
+      Extends             #AxdBase
+      RunOn               #Server
+      Origin              #{0C57A39C-824D-4AAD-AA6C-2F5ABC87CEC4}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #class AxdStudentDetailsDemo extends AxdBase
+        #{
+        #    #define.StudentDetails_DataSourceName('StudentDetails')
+        #}
+        #
+      ENDSOURCE
+      SOURCE #expandDimensions
+        #public boolean expandDimensions()
+        #{
+        #    return true;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #expandSurrogateForeignKeys
+        #public boolean expandSurrogateForeignKeys()
+        #{
+        #    return true;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #findCorrespondingAxBC
+        #public int findCorrespondingAxBC(tableId _tableId = 0)
+        #{
+        #    //TODO Add custom code here to determine which AxBC class to be used for _tableId
+        #    return classnum(AxCommon);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #findEntityKeyList
+        #public AifEntityKeyList findEntityKeyList(AifQueryCriteria            _queryCriteria,
+        #                                          AifEndpointActionPolicyInfo _actionPolicyInfo)
+        #{
+        #    throw error(strfmt("@SYS94920"));
+        #}
+        #
+      ENDSOURCE
+      SOURCE #getActionList
+        #public AifActionInfoList getActionList()
+        #{
+        #    AifActionInfoList   Actions = new AifActionInfoList();
+        #    AifActionInfo       aifActionInfo;
+        #    ;
+        #    aifActionInfo = new AifActionInfo();
+        #    aifActionInfo.parmActionId(strfmt('%1%2', methodstr(AxdBase, findList), this.getName()));
+        #    aifActionInfo.parmActionType(AifActionType::QueryDocuments);
+        #    aifActionInfo.parmExternalName(aifActionInfo.parmActionId());
+        #    aifActionInfo.parmMethodName(methodstr(AxdBase, findList));
+        #    //TODO make label
+        #    aifActionInfo.parmLabel("Send Student details from query");
+        #    //TODO make label for description
+        #    aifActionInfo.parmDescription("Selects Student details through a query and sends them in an XML string.");
+        #    aifActionInfo.parmDisplayMenuItemName(menuitemdisplaystr(AifDocConfiguration));
+        #
+        #    actions.add(aifActionInfo);
+        #
+        #    aifActionInfo = new AifActionInfo();
+        #    aifActionInfo.parmActionId(strfmt('%1%2', methodstr(AxdBase, readList), this.getName()));
+        #    aifActionInfo.parmActionType(AifActionType::SendDocumentList);
+        #    aifActionInfo.parmExternalName(aifActionInfo.parmActionId());
+        #    aifActionInfo.parmMethodName(methodstr(AxdBase, readList));
+        #    //TODO make label
+        #    aifActionInfo.parmLabel("Send list of Student details");
+        #    //TODO make label for description
+        #    aifActionInfo.parmDescription("Sends Student details from the system in an XML string.");
+        #    aifActionInfo.parmDisplayMenuItemName(menuitemdisplaystr(AifDocConfiguration));
+        #
+        #    actions.add(aifActionInfo);
+        #
+        #    aifActionInfo = new AifActionInfo();
+        #    aifActionInfo.parmActionId(strfmt('%1%2', methodstr(AxdBase, createList), this.getName()));
+        #    aifActionInfo.parmActionType(AifActionType::ReceiveDocumentList);
+        #    aifActionInfo.parmExternalName(aifActionInfo.parmActionId());
+        #    aifActionInfo.parmMethodName(methodstr(AxdBase, createList));
+        #    //TODO  make label
+        #    aifActionInfo.parmLabel("Receive Student details");
+        #    //TODO make label for description of create list
+        #    aifActionInfo.parmDescription("Receives Student details in an XML string and creates them in the system.");
+        #    aifActionInfo.parmDisplayMenuItemName(menuitemdisplaystr(AifDocConfiguration));
+        #
+        #    actions.add(aifActionInfo);
+        #
+        #    aifActionInfo = new AifActionInfo();
+        #    aifActionInfo.parmActionId(strfmt('%1%2', methodstr(AxdBase, updateList), this.getName()));
+        #    aifActionInfo.parmActionType(AifActionType::ProcessEntityList);
+        #    aifActionInfo.parmExternalName(aifActionInfo.parmActionId());
+        #    aifActionInfo.parmMethodName(methodstr(AxdBase, updateList));
+        #    //TODO  make label
+        #    aifActionInfo.parmLabel("Update Student details");
+        #    //TODO make label for description of create list
+        #    aifActionInfo.parmDescription("Receives Student details in an XML string and updates them in the system.");
+        #    aifActionInfo.parmDisplayMenuItemName(menuitemdisplaystr(AifDocConfiguration));
+        #
+        #    actions.add(aifActionInfo);
+        #
+        #    aifActionInfo = new AifActionInfo();
+        #    aifActionInfo.parmActionId(strfmt('%1%2', methodstr(AxdBase, deleteList), this.getName()));
+        #    aifActionInfo.parmActionType(AifActionType::ProcessEntityList);
+        #    aifActionInfo.parmExternalName(aifActionInfo.parmActionId());
+        #    aifActionInfo.parmMethodName(methodstr(AxdBase, deleteList));
+        #    //TODO  make label
+        #    aifActionInfo.parmLabel("Delete Student details");
+        #    //TODO make label for description of delete list
+        #    aifActionInfo.parmDescription("Receives a list of entity keys and deletes Student details records relating to the entity keys.");
+        #    aifActionInfo.parmDisplayMenuItemName(menuitemdisplaystr(AifDocConfiguration));
+        #
+        #    actions.add(aifActionInfo);
+        #
+        #    return actions;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #getConstraintList
+        #public void getConstraintList(Common _curRec, AifConstraintList _constraintList)
+        #{
+        #    AifConstraint  aifConstraint = new AifConstraint();
+        #    // TODO verify right table
+        #    StudentDetails    StudentDetails;
+        #    ;
+        #    if (!(_curRec is StudentDetails))
+        #    {
+        #         throw error(strfmt("@SYS23396",funcname()));
+        #    }
+        #    StudentDetails = _curRec ;
+        #    // TODO set right constraint type
+        #    aifConstraint.parmType(AIFConstraintType::NoConstraint);
+        #    // TODO set right field for constraint id
+        #    //aifConstraint.parmId(StudentDetails.IdType);
+        #    _constraintList.addConstraint(aifConstraint) ;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #getLabel
+        #public LabelString getLabel()
+        #{
+        #    //TODO Check if name is OK and create label
+        #    return "Student details";
+        #}
+        #
+      ENDSOURCE
+      SOURCE #getQueryName
+        #public QueryName getQueryName()
+        #{
+        #    return querystr(StudentDetails);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #prepareForSaveExtended
+        #public boolean prepareForSaveExtended(
+        #    AxdStack                    _axBcStack,
+        #    str                         _dataSourceName,
+        #    AxdRecordProcessingContext  _recordProcessingContext,
+        #    AxInternalBase              _childRecord)
+        #{
+        #    AxCommon axbc_StudentDetails;
+        #
+        #
+        #    //TODO: Add code here to ensure that required fields specified in the initMandatoryFieldsMap method are sent in by the service caller.
+        #
+        #    switch (_dataSourceName)
+        #    {
+        #        // ----------------------------------------------------------------------
+        #        // Process StudentDetails records
+        #        // ----------------------------------------------------------------------
+        #        case #StudentDetails_DataSourceName:
+        #
+        #            axbc_StudentDetails = _axBcStack.top();
+        #            //TODO Put validating code for StudentDetails here
+        #
+        #            switch (_recordProcessingContext)
+        #            {
+        #                // Ensure StudentDetails record is saved
+        #                case AxdRecordProcessingContext::AfterAllChildRecordsProcessed:
+        #                    if (!axbc_StudentDetails.isProcessed())
+        #                    {
+        #                        return true;
+        #                    }
+        #
+        #                    return false;
+        #            }
+        #
+        #            return false;
+        #
+        #        // ----------------------------------------------------------------------
+        #        // Unsupported data sources
+        #        // ----------------------------------------------------------------------
+        #        default:
+        #            error(strfmt("@SYS88979",classId2Name(classidget(_axBcStack.top()))));
+        #            return false;
+        #    }
+        #
+        #    return false;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #prepareForUpdateExtended
+        #public boolean prepareForUpdateExtended(
+        #    AxdStack                    _axBcStack,
+        #    str                         _dataSourceName,
+        #    AxdRecordProcessingContext  _recordProcessingContext,
+        #    AxInternalBase              _childRecord)
+        #{
+        #    return this.prepareForSaveExtended(
+        #        _axBcStack,
+        #        _dataSourceName,
+        #        _recordProcessingContext,
+        #        _childRecord);
+        #}
+        #
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: StudentDetailsDemo unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #StudentDetailsDemo
+    PROPERTIES
+      Name                #StudentDetailsDemo
+      Extends             #AifDocument
+      Origin              #{69C85D36-6E05-4739-911F-99F405B3202C}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #/// <summary>
+        #///    The <c>StudentDetailsDemo</c> class is the data object class that is exposed through the <c>StudentDetailsServiceDemo</c> class.
+        #/// </summary>
+        ##AxdStudentDetailsDemoDCT
+        #[AifDataContainerTypeAttribute(#StudentDetailsDemo)]
+        #class StudentDetailsDemo extends AifDocument
+        #{
+        #    #define.StudentDetails('StudentDetails')
+        #    #define.SenderId('SenderId')
+        #    #define.DocPurpose('DocPurpose')
+        #
+        #}
+        #
+      ENDSOURCE
+      SOURCE #createStudentDetails
+        #public AfStronglyTypedDataContainerList createStudentDetails()
+        #{
+        #    return this.get_NewList(#StudentDetails);
+        #}
+      ENDSOURCE
+      SOURCE #existsDocPurpose
+        #public boolean existsDocPurpose()
+        #{
+        #    return this.exists(#DocPurpose);
+        #}
+      ENDSOURCE
+      SOURCE #existsSenderId
+        #public boolean existsSenderId()
+        #{
+        #    return this.exists(#SenderId);
+        #}
+      ENDSOURCE
+      SOURCE #existsStudentDetails
+        #public boolean existsStudentDetails()
+        #{
+        #    return this.exists(#StudentDetails);
+        #}
+      ENDSOURCE
+      SOURCE #new
+        #public void new()
+        #{
+        #    super();
+        #}
+      ENDSOURCE
+      SOURCE #parmDocPurpose
+        #public XMLDocPurpose parmDocPurpose(XMLDocPurpose _value = 0)
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#DocPurpose, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#DocPurpose);
+        #}
+      ENDSOURCE
+      SOURCE #parmSenderId
+        #public DataAreaId parmSenderId(DataAreaId _value = '')
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#SenderId, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#SenderId);
+        #}
+      ENDSOURCE
+      SOURCE #parmStudentDetails
+        #public AfStronglyTypedDataContainerList parmStudentDetails(AfStronglyTypedDataContainerList _value = null)
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_List(#StudentDetails, _value);
+        #    }
+        #
+        #    return this.get_List(#StudentDetails);
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: StudentDetailsServiceDemo unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #StudentDetailsServiceDemo
+    PROPERTIES
+      Name                #StudentDetailsServiceDemo
+      Extends             #AifDocumentService
+      RunOn               #Server
+      Origin              #{E8865A32-8AFF-4CE0-808D-4DCFF74833E4}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #/// <summary>
+        #///    The <c>StudentDetailsServiceDemo</c> class serves as the document service for the <c>StudentDetailsDemo</c> document type.
+        #/// </summary>
+        #class StudentDetailsServiceDemo extends AifDocumentService
+        #{
+        #
+        #}
+        #
+      ENDSOURCE
+      SOURCE #create
+        #/// <summary>
+        #///    Creates one or more data objects that are contained in a <c>StudentDetailsDemo</c> document.
+        #/// </summary>
+        #/// <param name="_studentDetailsDemo">
+        #///    The <c>StudentDetailsDemo</c> document that contains the data objects to create.
+        #/// </param>
+        #/// <returns>
+        #///    A list of entity keys that identify the newly created objects. The entity keys appear in the order that the created objects are specified in the <c>StudentDetailsDemo</c> document.
+        #/// </returns>
+        #[AifDocumentCreateAttribute, SysEntryPointAttribute(true)]
+        #public AifEntityKeyList create(StudentDetailsDemo _studentDetailsDemo)
+        #{
+        #    return this.createList(_studentDetailsDemo);
+        #}
+      ENDSOURCE
+      SOURCE #delete
+        #/// <summary>
+        #///    Deletes one or more data objects.
+        #/// </summary>
+        #/// <param name="_entityKeyList">
+        #///    A list of entity keys that identify the data objects to delete.
+        #/// </param>
+        #[AifDocumentDeleteAttribute, SysEntryPointAttribute(true)]
+        #public void delete(AifEntityKeyList _entityKeyList)
+        #{
+        #    StudentDetailsDemo studentDetailsDemo = new StudentDetailsDemo();
+        #    this.deleteList(_entityKeyList, studentDetailsDemo);
+        #}
+      ENDSOURCE
+      SOURCE #find
+        #/// <summary>
+        #///    Finds data objects.
+        #/// </summary>
+        #/// <param name="_queryCriteria">
+        #///    The query criteria to use to find the data objects.
+        #/// </param>
+        #/// <returns>
+        #///    A <c>StudentDetailsDemo</c> document that contains the specified data objects.
+        #/// </returns>
+        #[AifDocumentFindAttribute, SysEntryPointAttribute(true)]
+        #public StudentDetailsDemo find(AifQueryCriteria _queryCriteria)
+        #{
+        #    StudentDetailsDemo studentDetailsDemo = new StudentDetailsDemo();
+        #    this.findList(_queryCriteria, studentDetailsDemo);
+        #    return studentDetailsDemo;
+        #}
+      ENDSOURCE
+      SOURCE #new
+        #protected void new()
+        #{
+        #    ;
+        #    super();
+        #}
+      ENDSOURCE
+      SOURCE #read
+        #/// <summary>
+        #///    Reads a <c>StudentDetailsDemo</c> document that contains one or more data objects.
+        #/// </summary>
+        #/// <param name="_entityKeyList">
+        #///    A list of entity keys that identify the data objects to read.
+        #/// </param>
+        #/// <returns>
+        #///    A <c>StudentDetailsDemo</c> document that contains list of read data objects.
+        #/// </returns>
+        #[AifDocumentReadAttribute, SysEntryPointAttribute(true)]
+        #public StudentDetailsDemo read(AifEntityKeyList _entityKeyList)
+        #{
+        #    StudentDetailsDemo studentDetailsDemo = new StudentDetailsDemo();
+        #    this.readList(_entityKeyList, studentDetailsDemo);
+        #    return studentDetailsDemo;
+        #}
+      ENDSOURCE
+      SOURCE #update
+        #/// <summary>
+        #///    Updates a <c>StudentDetailsDemo</c> document that contains one or more data objects.
+        #/// </summary>
+        #/// <param name="_entityKeyList">
+        #///    A list of entity keys that identify the data objects to update.
+        #/// </param>
+        #/// <param name="_studentDetailsDemo">
+        #///    A <c>StudentDetailsDemo</c> document that contains the data objects to update.
+        #/// </param>
+        #[AifDocumentUpdateAttribute, SysEntryPointAttribute(true)]
+        #public void update(AifEntityKeyList _entityKeyList, StudentDetailsDemo _studentDetailsDemo)
+        #{
+        #    this.updateList(_entityKeyList, _studentDetailsDemo);
+        #}
+      ENDSOURCE
+      SOURCE #construct
+        #public static StudentDetailsServiceDemo construct()
+        #{
+        #    return new StudentDetailsServiceDemo();
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: StudentDetailsDemo_StudentDetails unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #StudentDetailsDemo_StudentDetails
+    PROPERTIES
+      Name                #StudentDetailsDemo_StudentDetails
+      Extends             #AfStronglyTypedDataContainer
+      Origin              #{69795C63-1EE5-429C-9015-6545E263D073}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #/// <summary>
+        #///    The <c>StudentDetailsDemo_StudentDetails</c> class is the data object class that is exposed through the <c>StudentDetailsServiceDemo</c> class.
+        #/// </summary>
+        ##AxdStudentDetailsDemoDCT
+        #[AifDataContainerTypeAttribute(#StudentDetailsDemo_StudentDetails)]
+        #class StudentDetailsDemo_StudentDetails extends AfStronglyTypedDataContainer
+        #{
+        #    #define.USNNo('USNNo')
+        #    #define.StudentName('StudentName')
+        #    #define.RecVersion('RecVersion')
+        #    #define.RecId('RecId')
+        #    #define.Dept('Dept')
+        #    #define._DocumentHash('_DocumentHash')
+        #
+        #}
+        #
+      ENDSOURCE
+      SOURCE #exists_DocumentHash
+        #public boolean exists_DocumentHash()
+        #{
+        #    return this.exists(#_DocumentHash);
+        #}
+      ENDSOURCE
+      SOURCE #existsDept
+        #public boolean existsDept()
+        #{
+        #    return this.exists(#Dept);
+        #}
+      ENDSOURCE
+      SOURCE #existsRecId
+        #public boolean existsRecId()
+        #{
+        #    return this.exists(#RecId);
+        #}
+      ENDSOURCE
+      SOURCE #existsRecVersion
+        #public boolean existsRecVersion()
+        #{
+        #    return this.exists(#RecVersion);
+        #}
+      ENDSOURCE
+      SOURCE #existsStudentName
+        #public boolean existsStudentName()
+        #{
+        #    return this.exists(#StudentName);
+        #}
+      ENDSOURCE
+      SOURCE #existsUSNNo
+        #public boolean existsUSNNo()
+        #{
+        #    return this.exists(#USNNo);
+        #}
+      ENDSOURCE
+      SOURCE #new
+        #public void new()
+        #{
+        #    super();
+        #}
+      ENDSOURCE
+      SOURCE #parm_DocumentHash
+        #public str parm_DocumentHash(str _value = '')
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#_DocumentHash, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#_DocumentHash);
+        #}
+      ENDSOURCE
+      SOURCE #parmDept
+        #public str parmDept(str _value = '')
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#Dept, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#Dept);
+        #}
+      ENDSOURCE
+      SOURCE #parmRecId
+        #public RecId parmRecId(RecId _value = 0)
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#RecId, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#RecId);
+        #}
+      ENDSOURCE
+      SOURCE #parmRecVersion
+        #public RecVersion parmRecVersion(RecVersion _value = 0)
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#RecVersion, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#RecVersion);
+        #}
+      ENDSOURCE
+      SOURCE #parmStudentName
+        #public str parmStudentName(str _value = '')
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#StudentName, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#StudentName);
+        #}
+      ENDSOURCE
+      SOURCE #parmUSNNo
+        #public str parmUSNNo(str _value = '')
+        #{
+        #    if (!prmisdefault(_value))
+        #    {
+        #        this.set_Attribute(#USNNo, _value);
+        #    }
+        #
+        #    return this.get_Attribute(#USNNo);
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: SVC
+
+; Microsoft Dynamics AX SERVICE : StudentDetailsServiceDemo unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  SERVICE #StudentDetailsServiceDemo
+    PROPERTIES
+      Name                #StudentDetailsServiceDemo
+      ExternalName        #StudentDetailsServiceDemo
+      Class               #StudentDetailsServiceDemo
+      Origin              #{48F9213A-6C04-49B3-822A-C65F81CA3E6D}
+    ENDPROPERTIES
+    
+    OPERATIONS
+      OPERATION #create
+        PROPERTIES
+          Name                #create
+          Method              #create
+        ENDPROPERTIES
+        
+        PERMISSIONSET #Permissions
+          PROPERTIES
+          ENDPROPERTIES
+          
+          TABLES #Tables
+          ENDTABLES
+          
+        SERVERMETHODS #Server Methods
+        ENDSERVERMETHODS
+        
+      ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+      ENDASSOCIATEDCODEPERMISSIONS
+      
+  ENDPERMISSIONSET
+  
+ENDOPERATION
+
+OPERATION #delete
+  PROPERTIES
+    Name                #delete
+    Method              #delete
+  ENDPROPERTIES
+  
+  PERMISSIONSET #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+ENDASSOCIATEDCODEPERMISSIONS
+
+ENDPERMISSIONSET
+
+ENDOPERATION
+
+OPERATION #find
+  PROPERTIES
+    Name                #find
+    Method              #find
+    EnableIdempotence   #No
+  ENDPROPERTIES
+  
+  PERMISSIONSET #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+ENDASSOCIATEDCODEPERMISSIONS
+
+ENDPERMISSIONSET
+
+ENDOPERATION
+
+OPERATION #read
+  PROPERTIES
+    Name                #read
+    Method              #read
+    EnableIdempotence   #No
+  ENDPROPERTIES
+  
+  PERMISSIONSET #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+ENDASSOCIATEDCODEPERMISSIONS
+
+ENDPERMISSIONSET
+
+ENDOPERATION
+
+OPERATION #update
+  PROPERTIES
+    Name                #update
+    Method              #update
+  ENDPROPERTIES
+  
+  PERMISSIONSET #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+ENDASSOCIATEDCODEPERMISSIONS
+
+ENDPERMISSIONSET
+
+ENDOPERATION
+
+ENDOPERATIONS
+
+ENDSERVICE
+
+
+***Element: MCR
+
+; Microsoft Dynamics AX Macro: AxdStudentDetailsDemoDCT unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #AxdStudentDetailsDemoDCT
+    ##define.StudentDetailsDemo('StudentDetailsDemo')
+    ##define.StudentDetailsDemo_StudentDetails('StudentDetailsDemo.StudentDetails')
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{E108EEC0-D85D-4068-99B3-1EC17D2C537D}
+  ENDPROPERTIES
+  
+
+***Element: MCR
+
+; Microsoft Dynamics AX Macro: DataContainerTypes unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #DataContainerTypes
+    ##AxdPurchReqImportDCT
+    ##AxdCatImpDCT
+    ##AxdcatvcDCT
+    ##MiscDataContainerTypes
+    ##MetadataServiceDataContainerTypes
+    ##AifDimensionDataContainerTypes
+    ##AifTableNaturalKeyDataContainerTypes
+    ##SyncServiceDataContainerTypes
+    ##AxdCustomerDCT
+    ##AxdASNDCT
+    ##AxdAddressDCT
+    ##AxdAssetConditionDCT
+    ##AxdAssetGroupDCT
+    ##AxdAssetLocationDCT
+    ##AxdAssetMajorTypeDCT
+    ##AxdBillsofMaterialsDCT
+    ##AxdCashDiscDCT
+    ##AxdChartOfAccountsDCT
+    ##AxdConfigTableDCT
+    ##AxdContactPersonsDCT
+    ##AxdCountingJournalDCT
+    ##AxdCustPaymJournalDCT
+    ##AxdDeliveryModesDCT
+    ##AxdDimensionsDCT
+    ##AxdExchangeRatesDCT
+    ##AxdFixedAssetDCT
+    ##AxdFreeTextInvoiceDCT
+    ##AxdHRMAbsenceReqDCT
+    ##AxdHcmJobApplicationDCT
+    ##AxdHcmJobPostingDCT
+    ##AxdInventColorDCT
+    ##AxdInventDimCombinationDCT
+    ##AxdInventItemGroupDCT
+    ##AxdInventLocationDCT
+    ##AxdInventoryOnHandDCT
+    ##AxdInventoryTransactionsDCT
+    ##AxdInventSizeDCT
+    ##AxdItemDCT
+    ##AxdEMSSimulatedFlowDCT
+    ##AxdPaymentTermsDCT
+    ##AxdPriceDiscountJournalDCT
+    ##AxdPriceListDCT
+    ##AxdProdPickingListDCT
+    ##AxdProfitLossJournalDCT
+    ##AxdPurchaseInvoiceDCT
+    ##AxdPurchaseRequisitionDCT
+    ##AxdRouteCardDCT
+    ##AxdSalesInvoiceDCT
+    ##AxdSalesOrderDCT
+    ##AxdSalesPackingSlipDCT
+    ##AxdSysImportBusSectorsDCT
+    ##AxdSysImportContactPersonsDCT
+    ##AxdSysImportLeadsDCT
+    ##AxdTransferJournalDCT
+    ##AxdTrvPBSDetailDCT
+    ##AxdTrvPBSMaindataDCT
+    ##AxdUnitDCT
+    ##AxdUnitConversionDCT
+    ##AxdLedgerGeneralJournalDCT
+    ##AxdVendGroupDCT
+    ##AxdVendTableDCT
+    ##AxdVendorPaymentDCT
+    ##AxdPickingListDCT
+    ##AxdProjectHourJournalDCT
+    ##AxdServiceAgreementDCT
+    ##AxdReturnOrderInDCT
+    ##AxdReturnOrderOutDCT
+    ##AxdSalesInvoice_EinvoiceDCT
+    ##AxdProjInvoiceDCT
+    ##AxdExpenseDCT
+    ##AxdServiceOrderDCT
+    ##AxdSalesConfirmationDCT
+    ##AxdCustomerQuotationDCT
+    ##AxdAttendanceOutDCT
+    ##AxdAttendanceInDCT
+    ##AxdRFQSendDCT
+    ##AxdRFQReplyDCT
+    ##AxdVendInvoiceDCT
+    ##AxdTransferOrderCreateDCT
+    ##AxdTransferOrderPostingDCT
+    ##AxdEcoResCategoryDocDCT
+    ##AxdEcoResProductMasterDimValueDCT
+    ##AxdEcoResProductDCT
+    ##AxdSalesQuotationDCT
+    ##AxdCustPaymentsDCT
+    ##AxdVendPaymentsDCT
+    ##AxdCustomerTransactionDCT
+    ##AxdAdvancedLedgerEntryDCT
+    ##AxdBankStmtISODCT
+    ##AxdsmmBusRelDCT
+    ##AxdsmmLeadsDCT
+    ##AxdBudgetTransactionDCT
+    ##AxdContactPersonsDCT
+    ##AxdLedgerExchangeRateTypeDCT
+    ##AxdLedgerExchangeRateDCT
+    ##AxdLedgerCurrencyDCT
+    ##AxdInventItemLocationDCT
+    ##AxdTransferOrderDCT
+    ##AxdEMSMeterReadingFlowDCT
+    ##AxdEMSSubstanceFlowDCT
+    ##AxdLogisticsAddressZipCodeSetupDCT
+    ##AxdDOCommerceShpDCT
+    ##AxdDOCommerceSalesTableDCT
+    ##AxdLineDiscountDCT
+    ##AxdDOCommerceDimensionDCT
+    ##AxdDOCommerceDimensionGroupDCT
+    ##AxdDOCommerceDlvModeDCT
+    ##AxdSalesMultilineDiscountDCT
+    ##AxdDOCommerceMarketplaceDCT
+    ##AxdDOCommerceOnlineStoreDCT
+    ##AxdSalesTotalDiscountDCT
+    ##AxdEUSLReportingDCT
+    ##AxdDOCommerceItemGroupDCT
+    ##AxdTaxItemGroupsDCT
+    ##AxdTaxGroupsDCT
+    ##AxdTaxCodesDCT
+    ##AxdCustCreditCardDCT
+    ##AxdInventItemBarcodeDCT
+    ##AxdPurchRFQSitesDCT
+    ##AxdDlvDlvTermDCT
+    ##AxdDlvDlvModeDCT
+    ##AxdMarkupMarkupTableDCT
+    ##AxdPurchRFQPaymTermsDCT
+    ##AxdPurchRFQUnitDCT
+    ##AxdDOCommerceQtyOnHandDCT
+    ##AxdCaseWebDetailDCT
+    ##AxdCaseCategoryDetailDCT
+    ##AxdsmmLeadPrioritiesDCT
+    ##AxdVendVendRequestSignupDCT
+    ##AxdEcoResCategoryDocumentDCT
+    ##AxdDOCommercePriceDiscDCT
+    ##AxdBankStmtDCT
+    #// <GLS>
+    ##AxdIntrastatReportDCT
+    #// </GLS>
+    ##AxdBudgetPlanDCT
+    #// <GCN>
+    ##AxdTaxImportLinesForAIF_CNDCT
+    ##AxdTaxExportLinesForAIF_CNDCT
+    #// </GCN>
+    ##AxdRoutesDCT
+    ##AxdPayrollEarningsImportDCT
+    ##AxdCustECollectionLetterDCT
+    ##AxdRetailCatAttribDCT
+    ##AxdHcmWorkerImportDCT
+    ##AxdBudgetPlanOfficeAddinDCT
+    #// <GCN>
+    ##AxdTaxIntgrExportDocData_CNDCT
+    #// </GCN>
+    #// <GJP>
+    ##AxdAssetDepRateExpImp_JPDCT
+    ##AxdAssetUndepBalanceExpImp_JPDCT
+    #// </GJP>
+    ##AxdDMFExeStatusDCT
+    ##AxdDMFProcessGrpDCT
+    ##AxdBankPositivePayDCT
+    ##AxdConnItemSvcDCT
+    ##AxdConnEmployeesDCT
+    ##AxdConnInvoiceDCT
+    ##AxdConnCustomerOrgDCT
+    ##AxdConnExchRateDCT
+    ##AxdProjCategoryDCT
+    ##AxdProjInformationDCT
+    ##AxdProjQuotationDCT
+    ##AxdProjQuotationLineDCT
+    ##AxdProjectDocumentDCT
+    ##AxdProjContractDCT
+    #//Retail
+    ##AxdPriceDiscAdmTransDocDCT
+    #//Warehouse
+    ##AxdTMSTransStatusDCT
+    ##AxdTMSTransTenderDCT
+    ##AxdTMSPurchOrderDCT
+    ##AxdTMSInvoiceDCT
+    ##AxdWHSShipmentASNDCT
+    ##AxdPayrollPositivePayDCT
+    ##AxdTestQueryDCT
+    ##AxdStudentDetailsDemoDCT
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{C650EDA7-A0D3-4635-A894-DC85243EA7FD}
+  ENDPROPERTIES
+  
+
+***Element: MCR
+
+; Microsoft Dynamics AX Macro: AifTableNaturalKeyDataContainerTypes unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #AifTableNaturalKeyDataContainerTypes
+    ##define.TemporaryPlaceHolderMacro('')
+    ##define.TableNaturalKey_LogisticsPostalAddress('TableNaturalKey.LogisticsPostalAddress')
+    ##define.TableNaturalKey_EcoResCategory('TableNaturalKey.EcoResCategory')
+    ##define.TableNaturalKey_Tax1099Fields('TableNaturalKey.Tax1099Fields')
+    ##define.TableNaturalKey_BankLCExportLine('TableNaturalKey.BankLCExportLine')
+    ##define.TableNaturalKey_NumberSequenceTable('TableNaturalKey.NumberSequenceTable')
+    ##define.TableNaturalKey_DirPartyLocation('TableNaturalKey.DirPartyLocation')
+    ##define.TableNaturalKey_DirNameAffix('TableNaturalKey.DirNameAffix')
+    ##define.TableNaturalKey_ConfirmingPO('TableNaturalKey.ConfirmingPO')
+    ##define.TableNaturalKey_FiscalCalendarPeriod('TableNaturalKey.FiscalCalendarPeriod')
+    ##define.TableNaturalKey_ProjFundingSource('TableNaturalKey.ProjFundingSource')
+    ##define.TableNaturalKey_BankLCLine('TableNaturalKey.BankLCLine')
+    ##define.TableNaturalKey_DirPartyLocation('TableNaturalKey.DirPartyLocation')
+    ##define.TableNaturalKey_DirNameAffix('TableNaturalKey.DirNameAffix')
+    ##define.TableNaturalKey_ExchangeRateCurrencyPair('TableNaturalKey.ExchangeRateCurrencyPair')
+    ##define.TableNaturalKey_AgreementLine('TableNaturalKey.AgreementLine')
+    ##define.TableNaturalKey_CaseCategoryHierarchyDetail('TableNaturalKey.CaseCategoryHierarchyDetail')
+    ##define.TableNaturalKey_AccountingDistribution('TableNaturalKey.AccountingDistribution')
+    ##define.TableNaturalKey_TrvExpTable('TableNaturalKey.TrvExpTable')
+    #
+    #// <GIN>
+    ##define.TableNaturalKey_CustomsTariffCodeTable_IN('TableNaturalKey.CustomsTariffCodeTable_IN')
+    ##define.TableNaturalKey_TaxInformation_IN('TableNaturalKey.TaxInformation_IN')
+    ##define.TableNaturalKey_TaxInventVATCommodityCode_IN('TableNaturalKey.TaxInventVATCommodityCode_IN')
+    ##define.TableNaturalKey_TaxComponentTable_IN('TableNaturalKey.TaxComponentTable_IN')
+    ##define.TableNaturalKey_TaxRegistrationNumbers_IN('TableNaturalKey.TaxRegistrationNumbers_IN')
+    #// </GIN>
+    #
+    #// <GBR>
+    ##define.TableNaturalKey_SalesPurchOperationType_BR('TableNaturalKey.SalesPurchOperationType_BR')
+    ##define.TableNaturalKey_FiscalDocumentType_BR('TableNaturalKey.FiscalDocumentType_BR')
+    #// </GBR>
+    #
+    ##define.TableNaturalKey_BudgetPlanningProcess('TableNaturalKey.BudgetPlanningProcess')
+    ##define.TableNaturalKey_HcmRatingLevel('TableNaturalKey.HcmRatingLevel')
+    ##define.TableNaturalKey_PayrollPayPeriod('TableNaturalKey.PayrollPayPeriod')
+    ##define.TableNaturalKey_PayrollPayPeriod('TableNaturalKey.PayrollPayPeriod')
+    ##define.TableNaturalKey_HcmBenefit('TableNaturalKey.HcmBenefit')
+    ##define.TableNaturalKey_PayrollWorkerTaxRegion('TableNaturalKey.PayrollWorkerTaxRegion')
+    ##define.TableNaturalKey_HcmWorker('TableNaturalKey.HcmWorker')
+    ##define.TableNaturalKey_LogisticsElectronicAddress('TableNaturalKey.LogisticsElectronicAddress')
+    ##define.TableNaturalKey_HcmEmployment('TableNaturalKey.HcmEmployment')
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{28163AB0-A524-46AD-BE8D-5A8F12D58D41}
+  ENDPROPERTIES
+  
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: GenerateXSDSchema_AxdStudentDetailsDemo unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #GenerateXSDSchema_AxdStudentDetailsDemo
+    #static void GenerateXSDSchema_AxdStudentDetailsDemo(Args _args)
+    #{
+    #    AxdStudentDetailsDemo    AxdStudentDetailsDemo;
+    #    XML                 xml;
+    #    XMLDocument         xmlDocument;
+    #    ;
+    #    AxdStudentDetailsDemo = AxdBase::newClassId(classnum(AxdStudentDetailsDemo));
+    #    xml = AxdStudentDetailsDemo.getSchema();
+    #    xmlDocument = XMLDocument::newXML(xml);
+    #    //TODO Select file to write XML output to
+    #    xmlDocument.save("e:\\XSDSchema_AxdStudentDetailsDemo.xml");
+    #}
+    #
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{82D09D51-A907-4892-8F52-F000567623E0}
+  ENDPROPERTIES
+  
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : AxdStudentDetailsDemo unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #AxdStudentDetailsDemo
+  SHARED
+  PROPERTIES
+    Name                #AxdStudentDetailsDemo
+    Origin              #{05E397FC-CFA1-4332-822E-AE56DEDE539A}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 20
+      UTILOBJECTID 0
+      NODETYPE 330
+      NAME #StudentDetails
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 45
+      UTILOBJECTID 1024653
+      NODETYPE 329
+      NAME #AxdStudentDetailsDemo
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 45
+      UTILOBJECTID 1024654
+      NODETYPE 329
+      NAME #StudentDetailsDemo
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 45
+      UTILOBJECTID 1024655
+      NODETYPE 329
+      NAME #StudentDetailsServiceDemo
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 45
+      UTILOBJECTID 1024656
+      NODETYPE 329
+      NAME #StudentDetailsDemo_StudentDetails
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 76
+      UTILOBJECTID 0
+      NODETYPE 1321
+      NAME #StudentDetailsServiceDemo
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 4
+      UTILOBJECTID 0
+      NODETYPE 218
+      NAME #AxdStudentDetailsDemoDCT
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 4
+      UTILOBJECTID 0
+      NODETYPE 218
+      NAME #DataContainerTypes
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 4
+      UTILOBJECTID 0
+      NODETYPE 218
+      NAME #AifTableNaturalKeyDataContainerTypes
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 5
+      UTILOBJECTID 0
+      NODETYPE 215
+      NAME #GenerateXSDSchema_AxdStudentDetailsDemo
+    ENDNODE
+  ENDPROJECT
+  
+
+***Element: END

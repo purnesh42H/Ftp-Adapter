@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.002.001.02' xmlns:xsi='http://www.w3.org/2001/XMLSchemainstance'>
+<pain.002.001.02>
+<GrpHdr>
+<MsgId>411872924106</MsgId>
+<CreDtTm>2014-06-20T07:55:42</CreDtTm>
+<InitgPty>
+<Id>
+<OrgId>
+<BkPtyId>ABC36724001</BkPtyId>
+</OrgId>
+</Id>
+</InitgPty>
+<FwdgAgt>
+<FinInstnId>
+<PrtryId>
+<Id>HSBC Connect</Id>
+</PrtryId>
+</FinInstnId>
+</FwdgAgt>
+</GrpHdr>
+<OrgnlGrpInfAndSts><
+OrgnlMsgId>05119570b0bb41bd82d8645a667922b2</OrgnlMsgId>
+<OrgnlMsgNmId>pain.001.001.02</OrgnlMsgNmId>
+<OrgnlCreDtTm>2014-06-20T14:44:26</OrgnlCreDtTm>
+<OrgnlNbOfTxs>3</OrgnlNbOfTxs>
+<GrpSts>ACCP</GrpSts>
+</OrgnlGrpInfAndSts>
+</pain.002.001.02>
+</Document> 

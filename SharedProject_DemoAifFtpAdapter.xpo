@@ -1,0 +1,282 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : StudentDetails unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #StudentDetails
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #StudentDetails
+      Label               #Student details
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{10CE1053-6903-4B61-97F9-6C4DDF0908AC}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #Dept
+        STRING
+        PROPERTIES
+          Name                #Dept
+          Table               #StudentDetails
+          Origin              #{2A205831-9092-4713-8505-2E3A1F78AFCC}
+        ENDPROPERTIES
+        
+      FIELD #StudentName
+        STRING
+        PROPERTIES
+          Name                #StudentName
+          Label               #Name
+          Table               #StudentDetails
+          Origin              #{9F2A2678-1B3E-4F21-93DE-4FFE68020DDC}
+          StringSize          #50
+        ENDPROPERTIES
+        
+      FIELD #USNNo
+        STRING
+        PROPERTIES
+          Name                #USNNo
+          Label               #USN No
+          Table               #StudentDetails
+          Origin              #{B4CB6441-2460-4DA3-A98E-A11555659C97}
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    INDICES
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: AIF_Test unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #AIF_Test
+    #
+    #static void AIF_Test(Args _args)
+    #{
+    #
+    #    AxdSendContext axdSendContext = AxdSendContext::construct();
+    #    AifEntityKey aifEntityKey = AifEntityKey::construct();
+    #    Map keyData;
+    #    AifConstraintList aifConstraintList = new AifConstraintList();
+    #    AifConstraint aifConstraint = new AifConstraint();
+    #
+    #
+    #    StudentDetails    studentDetails;
+    #
+    #
+    #
+    #    select studentDetails where studentDetails.USNNo == '1017401';
+    #
+    #    keyData = SysDictTable::getKeyData(studentDetails);
+    #
+    #    aifEntityKey.parmTableId(studentDetails.TableId);
+    #    aifEntityKey.parmRecId(studentDetails.RecId);
+    #    aifEntityKey.parmKeyDataMap(keyData);
+    #
+    #    axdSendContext.parmXMLDocPurpose(XMLDocPurpose::Original);
+    #    axdSendContext.parmSecurity(false);
+    #
+    #    aifConstraint.parmType(AifConstraintType::NoConstraint) ;
+    #    aifConstraintList.addConstraint(aifConstraint) ;
+    #
+    #    AifSendService::submitDefault(
+    #        classnum(StudentDetailsServiceDemo),
+    #        aifEntityKey,
+    #        aifConstraintList,
+    #        AifSendMode::Async,
+    #        axdSendContext.pack());
+    #
+    #}
+    #
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{121216C5-DAEE-4CBE-AC9C-470F5243881B}
+  ENDPROPERTIES
+  
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: RunAIF unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #RunAIF
+    #static void RunAIF(Args _args)
+    #{
+    #    //new AifOutboundProcessingService().run();
+    #    //new AifGatewaySendService().run();
+    #
+    #    new AifGatewayReceiveService().run();
+    #    new AifInboundProcessingService().run();
+    #}
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{6672EE26-B82A-481E-9C5C-D4DFC189356F}
+  ENDPROPERTIES
+  
+
+***Element: QUE
+
+; Microsoft Dynamics AX Query: StudentDetails unloaded
+; --------------------------------------------------------------------------------
+VERSION 31
+
+QUERY #StudentDetails
+  PROPERTIES
+    Name                #StudentDetails
+    Version             #7
+    NextUniqueId        #1001
+    Origin              #{42A52982-1734-4DBD-AFF1-E87768B95F21}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class QueryRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  BLOCKS
+    BLOCK #StudentDetails
+      PROPERTIES
+        Name                #StudentDetails
+        Table               #StudentDetails
+        UniqueId            #1000
+        FetchMode           #1:1
+        Update              #Yes
+      ENDPROPERTIES
+      
+      FIELDLIST
+        PROPERTIES
+        ENDPROPERTIES
+        
+      ENDFIELDLIST
+      SORTING
+      ENDSORTING
+      LINES
+      ENDLINES
+      BLOCKS
+      ENDBLOCKS
+      GROUPBY
+      ENDGROUPBY
+      HAVING
+      ENDHAVING
+      ORDERBY
+      ENDORDERBY
+    ENDBLOCK
+  ENDBLOCKS
+  DEPENDENTS
+  ENDDEPENDENTS
+  COMPOSITEQUERIES
+  ENDCOMPOSITEQUERIES
+ENDQUERY
+
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : DemoAifFtpAdapter unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #DemoAifFtpAdapter
+  SHARED
+  PROPERTIES
+    Name                #DemoAifFtpAdapter
+    Origin              #{62A93327-6788-4C0E-B91E-F000A3D2F292}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    GROUP #DataDictionary
+      PROPERTIES
+        Name                #DataDictionary
+        ProjectGroupType    #DataDictionary
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      GROUP #Tables
+        PROPERTIES
+          Name                #Tables
+          ProjectGroupType    #Tables
+          GroupMask           #
+          PreventEditProperties #No
+        ENDPROPERTIES
+        
+        BEGINNODE
+          FILETYPE 0
+          UTILTYPE 44
+          UTILOBJECTID 104393
+          NODETYPE 204
+          NAME #StudentDetails
+        ENDNODE
+        ENDGROUP
+        
+      ENDGROUP
+      
+    GROUP #Jobs
+      PROPERTIES
+        Name                #Jobs
+        ProjectGroupType    #Jobs
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 5
+        UTILOBJECTID 0
+        NODETYPE 215
+        NAME #AIF_Test
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 5
+        UTILOBJECTID 0
+        NODETYPE 215
+        NAME #RunAIF
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #Queries
+      PROPERTIES
+        Name                #Queries
+        ProjectGroupType    #Queries
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 20
+        UTILOBJECTID 0
+        NODETYPE 330
+        NAME #StudentDetails
+      ENDNODE
+      ENDGROUP
+      
+  ENDPROJECT
+  
+
+***Element: END
