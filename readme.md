@@ -4,4 +4,4 @@
 
 - To use, import the 3 xpo files in your AX dev environment. Compile and Run CIL.
 
-Note:- This project is a prototype intended to show the concept of AIF based FTP adapter for Dynamics AX 2012 and can be used as a base model to extend for different cases.
+Note:- This project is a prototype intended to show the concept of AIF based FTP adapter for Dynamics AX 2012 and can be used as a base model to extend for different cases. It has some client specific files with fake information as used for the demo.
